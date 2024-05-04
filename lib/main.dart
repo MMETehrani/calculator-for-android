@@ -52,7 +52,13 @@ class _CalculatorAppState extends State<CalculatorApp> {
               ),
               backgroundColor: getbackgroundColor(text2)),
           onPressed: () {
-            buttomPressed(text2);
+            if (text2 == 'ce') {
+              setState(() {
+                inputUser = inputUser.substring(0, inputUser.length - 1);
+              });
+            } else {
+              buttomPressed(text2);
+            }
           },
           child: Padding(
             padding: EdgeInsets.all(3),
