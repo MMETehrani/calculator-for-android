@@ -1,11 +1,40 @@
-import 'dart:ffi';
-
 import 'package:calculator/constants.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
-  runApp(CalculatorApp());
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  static final _defaultLightColorScheme =
+      ColorScheme.fromSwatch(primarySwatch: Colors.blue);
+
+  static final _defaultDarkColorScheme = ColorScheme.fromSwatch(
+      primarySwatch: Colors.blue, brightness: Brightness.dark);
+
+  @override
+  Widget build(BuildContext context) {
+    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Dynamic Color',
+        theme: ThemeData(
+          colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+          useMaterial3: true,
+        ),
+        darkTheme: ThemeData(
+          colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+          useMaterial3: true,
+        ),
+        themeMode: ThemeMode.light,
+        home: CalculatorApp(),
+      );
+    });
+  }
 }
 
 class CalculatorApp extends StatefulWidget {
@@ -141,7 +170,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 flex: 3,
                 child: Container(
                   height: 100,
-                  color: backgroundGreyDark,
+                  color: Theme.of(context).colorScheme.surfaceVariant,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -175,8 +204,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
               Expanded(
                 flex: 7,
                 child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    color: Color.fromARGB(255, 255, 247, 245),
+                  ),
                   height: 100,
-                  color: backgroundGrey,
+                  // color: Theme.of(context).colorScheme.surface,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
