@@ -24,7 +24,7 @@ class Application extends StatelessWidget {
             child: Text(
               text1,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: gettextColor(text1)),
             ),
           ),
         ),
@@ -40,7 +40,7 @@ class Application extends StatelessWidget {
             child: Text(
               text2,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: gettextColor(text2)),
             ),
           ),
         ),
@@ -56,7 +56,7 @@ class Application extends StatelessWidget {
             child: Text(
               text3,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: gettextColor(text3)),
             ),
           ),
         ),
@@ -72,7 +72,7 @@ class Application extends StatelessWidget {
             child: Text(
               text4,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: textGrey),
+              style: TextStyle(fontSize: 26, color: gettextColor(text4)),
             ),
           ),
         ),
@@ -127,6 +127,14 @@ class Application extends StatelessWidget {
       }
     }
     return false;
+  }
+
+  Color gettextColor(String text) {
+    if (isOperator(text)) {
+      return textGreen;
+    } else {
+      return textGrey;
+    }
   }
 
   Color getbackgroundColor(String text) {
