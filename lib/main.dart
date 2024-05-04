@@ -1,12 +1,27 @@
+import 'dart:ffi';
+
 import 'package:calculator/constants.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Application());
+  runApp(CalculatorApp());
 }
 
-class Application extends StatelessWidget {
-  const Application({super.key});
+class CalculatorApp extends StatefulWidget {
+  CalculatorApp({super.key});
+
+  @override
+  State<CalculatorApp> createState() => _CalculatorAppState();
+}
+
+class _CalculatorAppState extends State<CalculatorApp> {
+  var inputUser = '';
+
+  void buttomPressed(String text) {
+    setState(() {
+      inputUser = inputUser + text;
+    });
+  }
 
   Widget getRow(String text1, String text2, String text3, String text4) {
     return Row(
@@ -18,7 +33,9 @@ class Application extends StatelessWidget {
                 side: BorderSide(width: 0, color: Colors.transparent),
               ),
               backgroundColor: getbackgroundColor(text1)),
-          onPressed: () {},
+          onPressed: () {
+            buttomPressed(text1);
+          },
           child: Padding(
             padding: EdgeInsets.all(3),
             child: Text(
@@ -34,7 +51,9 @@ class Application extends StatelessWidget {
                 side: BorderSide(width: 0, color: Colors.transparent),
               ),
               backgroundColor: getbackgroundColor(text2)),
-          onPressed: () {},
+          onPressed: () {
+            buttomPressed(text2);
+          },
           child: Padding(
             padding: EdgeInsets.all(3),
             child: Text(
@@ -50,7 +69,9 @@ class Application extends StatelessWidget {
                 side: BorderSide(width: 0, color: Colors.transparent),
               ),
               backgroundColor: getbackgroundColor(text3)),
-          onPressed: () {},
+          onPressed: () {
+            buttomPressed(text3);
+          },
           child: Padding(
             padding: EdgeInsets.all(3),
             child: Text(
@@ -66,7 +87,9 @@ class Application extends StatelessWidget {
                 side: BorderSide(width: 0, color: Colors.transparent),
               ),
               backgroundColor: getbackgroundColor(text4)),
-          onPressed: () {},
+          onPressed: () {
+            buttomPressed(text4);
+          },
           child: Padding(
             padding: EdgeInsets.all(3),
             child: Text(
@@ -93,6 +116,23 @@ class Application extends StatelessWidget {
                 child: Container(
                   height: 100,
                   color: backgroundGreyDark,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          inputUser,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: textGreen,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
