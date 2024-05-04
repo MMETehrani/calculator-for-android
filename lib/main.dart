@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:calculator/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() {
   runApp(CalculatorApp());
@@ -16,6 +17,7 @@ class CalculatorApp extends StatefulWidget {
 
 class _CalculatorAppState extends State<CalculatorApp> {
   var inputUser = '';
+  var reuslt = '';
 
   void buttomPressed(String text) {
     setState(() {
@@ -34,7 +36,14 @@ class _CalculatorAppState extends State<CalculatorApp> {
               ),
               backgroundColor: getbackgroundColor(text1)),
           onPressed: () {
-            buttomPressed(text1);
+            if (text1 == 'ac') {
+              setState(() {
+                inputUser = '';
+                reuslt = '';
+              });
+            } else {
+              buttomPressed(text1);
+            }
           },
           child: Padding(
             padding: EdgeInsets.all(3),
@@ -94,7 +103,18 @@ class _CalculatorAppState extends State<CalculatorApp> {
               ),
               backgroundColor: getbackgroundColor(text4)),
           onPressed: () {
-            buttomPressed(text4);
+            if (text4 == '=') {
+              Parser parser = Parser();
+              Expression expression = parser.parse(inputUser);
+              ContextModel contextModel = ContextModel();
+              double eval =
+                  expression.evaluate(EvaluationType.REAL, contextModel);
+              setState(() {
+                reuslt = eval.toString();
+              });
+            } else {
+              buttomPressed(text4);
+            }
           },
           child: Padding(
             padding: EdgeInsets.all(3),
@@ -137,6 +157,17 @@ class _CalculatorAppState extends State<CalculatorApp> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          reuslt,
+                          style: TextStyle(
+                            color: textGrey,
+                            fontSize: 62,
+                          ),
+                          textAlign: TextAlign.end,
+                        ),
+                      )
                     ],
                   ),
                 ),
