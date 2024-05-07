@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:calculator/constants.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +49,8 @@ class CalculatorApp extends StatefulWidget {
 class _CalculatorAppState extends State<CalculatorApp> {
   var inputUser = '';
   var reuslt = '';
-
+  double bSize = 75;
+  double bBorder = 25;
   void buttomPressed(String text) {
     setState(() {
       inputUser = inputUser + text;
@@ -59,11 +62,17 @@ class _CalculatorAppState extends State<CalculatorApp> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TextButton(
-          style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
-              ),
-              backgroundColor: getbackgroundColor(text1)),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(bBorder),
+            ),
+            primary: getbackgroundColor(text1),
+            minimumSize: Size(bSize, bSize),
+            maximumSize: Size(bSize, bSize),
+          ),
+
+          // backgroundColor: getbackgroundColor(text1),
+          // backgroundColor: getbackgroundColor(text1)),
           onPressed: () {
             if (text1 == 'ac') {
               setState(() {
@@ -84,11 +93,14 @@ class _CalculatorAppState extends State<CalculatorApp> {
           ),
         ),
         TextButton(
-          style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
-              ),
-              backgroundColor: getbackgroundColor(text2)),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(bBorder),
+            ),
+            primary: getbackgroundColor(text1),
+            minimumSize: Size(bSize, bSize),
+            maximumSize: Size(bSize, bSize),
+          ),
           onPressed: () {
             if (text2 == 'ce') {
               setState(() {
@@ -108,11 +120,14 @@ class _CalculatorAppState extends State<CalculatorApp> {
           ),
         ),
         TextButton(
-          style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
-              ),
-              backgroundColor: getbackgroundColor(text3)),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(bBorder),
+            ),
+            primary: getbackgroundColor(text1),
+            minimumSize: Size(bSize, bSize),
+            maximumSize: Size(bSize, bSize),
+          ),
           onPressed: () {
             buttomPressed(text3);
           },
@@ -126,11 +141,14 @@ class _CalculatorAppState extends State<CalculatorApp> {
           ),
         ),
         TextButton(
-          style: TextButton.styleFrom(
-              shape: CircleBorder(
-                side: BorderSide(width: 0, color: Colors.transparent),
-              ),
-              backgroundColor: getbackgroundColor(text4)),
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(bBorder),
+            ),
+            primary: getbackgroundColor(text4),
+            minimumSize: Size(bSize, bSize),
+            maximumSize: Size(bSize, bSize),
+          ),
           onPressed: () {
             if (text4 == '=') {
               Parser parser = Parser();
@@ -163,14 +181,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Color(0xFFFBE5DE),
         body: SafeArea(
           child: Column(
             children: [
               Expanded(
-                flex: 3,
+                flex: 4,
                 child: Container(
                   height: 100,
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Color(0xFFFBE5DE),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -202,26 +221,29 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 ),
               ),
               Expanded(
-                flex: 7,
+                flex: 6,
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
                     ),
-                    color: Color.fromARGB(255, 255, 247, 245),
+                    color: Color(0xFFFDF4F2),
                   ),
                   height: 100,
                   // color: Theme.of(context).colorScheme.surface,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      getRow('ac', 'ce', '%', '/'),
-                      getRow('7', '8', '9', '*'),
-                      getRow('4', '5', '6', '-'),
-                      getRow('1', '2', '3', '+'),
-                      getRow('00', '0', '.', '='),
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        getRow('ac', 'ce', '%', '/'),
+                        getRow('7', '8', '9', '*'),
+                        getRow('4', '5', '6', '-'),
+                        getRow('1', '2', '3', '+'),
+                        getRow('00', '0', '.', '='),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -233,7 +255,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   }
 
   bool isOperator(String text) {
-    var list = ['ac', 'ce', '%', '/', '*', '-', '+', '='];
+    var list = ['='];
     for (var item in list) {
       if (text == item) {
         return true;
@@ -246,7 +268,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
     if (isOperator(text)) {
       return textGreen;
     } else {
-      return textGrey;
+      return Color(0xFF464646);
     }
   }
 
