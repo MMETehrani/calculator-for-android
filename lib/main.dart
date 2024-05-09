@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:calculator/constants.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(bBorder),
             ),
-            primary: getbackgroundColor(text1),
+            backgroundColor: getbackgroundColor(text1),
+            // primary:
             minimumSize: Size(bSize, bSize),
             maximumSize: Size(bSize, bSize),
           ),
@@ -88,7 +88,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
             child: Text(
               text1,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: gettextColor(text1)),
+              style: TextStyle(fontSize: 32, color: gettextColor(text1)),
             ),
           ),
         ),
@@ -97,7 +97,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(bBorder),
             ),
-            primary: getbackgroundColor(text1),
+            backgroundColor: getbackgroundColor(text2),
+            // primary: getbackgroundColor(text1),
             minimumSize: Size(bSize, bSize),
             maximumSize: Size(bSize, bSize),
           ),
@@ -115,7 +116,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
             child: Text(
               text2,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: gettextColor(text2)),
+              style: TextStyle(fontSize: 32, color: gettextColor(text2)),
             ),
           ),
         ),
@@ -124,7 +125,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(bBorder),
             ),
-            primary: getbackgroundColor(text1),
+            backgroundColor: getbackgroundColor(text3),
+            // primary: getbackgroundColor(text1),
             minimumSize: Size(bSize, bSize),
             maximumSize: Size(bSize, bSize),
           ),
@@ -136,7 +138,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
             child: Text(
               text3,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: gettextColor(text3)),
+              style: TextStyle(fontSize: 32, color: gettextColor(text3)),
             ),
           ),
         ),
@@ -145,7 +147,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(bBorder),
             ),
-            primary: getbackgroundColor(text4),
+            backgroundColor: getbackgroundColor(text4),
+            // primary: getbackgroundColor(text4),
             minimumSize: Size(bSize, bSize),
             maximumSize: Size(bSize, bSize),
           ),
@@ -168,7 +171,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
             child: Text(
               text4,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 26, color: gettextColor(text4)),
+              style: TextStyle(fontSize: 32, color: gettextColor(text4)),
             ),
           ),
         ),
@@ -194,24 +197,25 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(10),
                         child: Text(
                           inputUser,
                           textAlign: TextAlign.end,
                           style: TextStyle(
-                            color: textGreen,
+                            color: textGrey,
                             fontWeight: FontWeight.bold,
-                            fontSize: 28,
+                            fontSize: 62,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.all(8),
+                        padding: EdgeInsets.all(10),
                         child: Text(
                           reuslt,
                           style: TextStyle(
-                            color: textGrey,
-                            fontSize: 62,
+                            color: textReuslt,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.end,
                         ),
