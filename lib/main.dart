@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
           useMaterial3: true,
         ),
-        themeMode: ThemeMode.light,
+        // themeMode: ThemeMode.light,
         home: CalculatorApp(),
       );
     });
@@ -184,7 +184,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color(0xFFFBE5DE),
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: Column(
             children: [
@@ -192,35 +192,39 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 flex: 4,
                 child: Container(
                   height: 100,
-                  color: Color(0xFFFBE5DE),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          inputUser,
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            color: textGrey,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 62,
+                  color: Theme.of(context).colorScheme.background,
+                  child: Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            inputUser,
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              color: textGrey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 62,
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          reuslt,
-                          style: TextStyle(
-                            color: textReuslt,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            reuslt,
+                            style: TextStyle(
+                              color: textReuslt,
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.end,
                           ),
-                          textAlign: TextAlign.end,
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -232,7 +236,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40),
                     ),
-                    color: Color(0xFFFDF4F2),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   height: 100,
                   // color: Theme.of(context).colorScheme.surface,
@@ -259,7 +263,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   }
 
   bool isOperator(String text) {
-    var list = ['='];
+    var list = ['ac', 'ce', '%', '/', '*', '-', '+', '='];
     for (var item in list) {
       if (text == item) {
         return true;
@@ -270,17 +274,17 @@ class _CalculatorAppState extends State<CalculatorApp> {
 
   Color gettextColor(String text) {
     if (isOperator(text)) {
-      return textGreen;
+      return Theme.of(context).colorScheme.onPrimary;
     } else {
-      return Color(0xFF464646);
+      return Theme.of(context).colorScheme.onSurface;
     }
   }
 
   Color getbackgroundColor(String text) {
     if (isOperator(text)) {
-      return backgroundGreyDark;
+      return Theme.of(context).colorScheme.primary;
     } else {
-      return backgroundGrey;
+      return Theme.of(context).colorScheme.surface;
     }
   }
 }
