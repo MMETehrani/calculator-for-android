@@ -184,6 +184,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          actions: [Icon(Icons.more_vert)],
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: Column(
@@ -201,13 +205,24 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10),
-                          child: Text(
-                            inputUser,
-                            textAlign: TextAlign.end,
-                            style: TextStyle(
-                              color: textGrey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 62,
+                          child: RichText(
+                            // Replace Text widget with RichText
+                            text: TextSpan(
+                              children: [
+                                for (var char in inputUser
+                                    .split('')) // Iterate over characters
+                                  TextSpan(
+                                    text: char,
+                                    style: TextStyle(
+                                      // Set text color based on operator
+                                      color: isOperator(char)
+                                          ? Colors.red
+                                          : Colors.black,
+                                      fontSize: 32.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                         ),
