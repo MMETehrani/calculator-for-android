@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'dart:io';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:calculator/constants.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
@@ -19,22 +21,50 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(builder: (lightColorScheme, darkColorScheme) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Dynamic Color',
-        theme: ThemeData(
-          colorScheme: lightColorScheme ?? _defaultLightColorScheme,
-          useMaterial3: true,
-        ),
-        darkTheme: ThemeData(
-          colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
-          useMaterial3: true,
-        ),
-        // themeMode: ThemeMode.light,
-        home: CalculatorApp(),
-      );
-    });
+    return DynamicColorBuilder(
+      builder: (lightColorScheme, darkColorScheme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Dynamic Color',
+          theme: ThemeData(
+            colorScheme: _getThemeColorScheme(context),
+            // colorScheme: lightColorScheme ?? _defaultLightColorScheme,
+            useMaterial3: true,
+          ),
+          darkTheme: ThemeData(
+            colorScheme: darkColorScheme ?? _defaultDarkColorScheme,
+            useMaterial3: true,
+          ),
+          // themeMode: ThemeMode.light,
+          home: CalculatorApp(),
+        );
+      },
+    );
+  }
+}
+
+ColorScheme _getThemeColorScheme(BuildContext context) {
+  final platform = Theme.of(context).platform;
+  if (platform == TargetPlatform.android) {
+    final androidVersion = Platform.version;
+    final majorVersion =
+        int.parse(androidVersion.split('.').first); // استخراج نسخه اصلی
+    if (majorVersion < 13) {
+      return Theme.of(context).colorScheme.copyWith(
+            primary: primary, // رنگ ثابت برای تم اصلی
+            secondary: secondary,
+            onPrimary: onPrimary,
+            onSecondary: onSecondary,
+            primaryContainer: primaryContainer,
+            onBackground: onBackground,
+            background: background,
+          );
+    } else {
+      return Theme.of(context)
+          .colorScheme; // Dynamic Colors برای اندروید 13 به بالا
+    }
+  } else {
+    return Theme.of(context).colorScheme; // Dynamic Colors برای iOS
   }
 }
 
@@ -216,9 +246,13 @@ class _CalculatorAppState extends State<CalculatorApp> {
                                     style: TextStyle(
                                       // Set text color based on operator
                                       color: isOperator(char)
-                                          ? Colors.red
-                                          : Colors.black,
-                                      fontSize: 32.0,
+                                          ? Theme.of(context)
+                                              .colorScheme
+                                              .primary
+                                          : Theme.of(context)
+                                              .colorScheme
+                                              .onBackground,
+                                      fontSize: 64.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -231,11 +265,11 @@ class _CalculatorAppState extends State<CalculatorApp> {
                           child: Text(
                             reuslt,
                             style: TextStyle(
-                              color: textReuslt,
+                              color: Theme.of(context).colorScheme.onBackground,
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
                             ),
-                            textAlign: TextAlign.end,
+                            textAlign: TextAlign.start,
                           ),
                         )
                       ],
@@ -251,7 +285,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       topLeft: Radius.circular(40),
                       topRight: Radius.circular(40),
                     ),
-                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    color: Theme.of(context).colorScheme.primaryContainer,
                   ),
                   height: 100,
                   // color: Theme.of(context).colorScheme.surface,
@@ -289,9 +323,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
 
   Color gettextColor(String text) {
     if (isOperator(text)) {
-      return Theme.of(context).colorScheme.onPrimary;
+      return Theme.of(context).colorScheme.onSecondary;
     } else {
-      return Theme.of(context).colorScheme.onSurface;
+      return Theme.of(context).colorScheme.onPrimary;
     }
   }
 
@@ -299,7 +333,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
     if (isOperator(text)) {
       return Theme.of(context).colorScheme.primary;
     } else {
-      return Theme.of(context).colorScheme.surface;
+      return Theme.of(context).colorScheme.secondary;
     }
   }
 }
