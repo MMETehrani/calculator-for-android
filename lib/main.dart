@@ -184,6 +184,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          actions: [Icon(Icons.more_vert)],
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
         body: SafeArea(
           child: Column(
