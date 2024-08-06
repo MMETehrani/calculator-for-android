@@ -19,13 +19,13 @@ To use the Calculator App, follow these steps:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/mmetehrani/calculator.git
+   git clone https://github.com/MMETehrani/calculator-for-android.git
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd calculator
+   cd calculator-for-android
    ```
 
 3. Open the project in your preferred editor and run it on a simulator or physical device.
